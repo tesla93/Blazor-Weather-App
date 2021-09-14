@@ -1,0 +1,129 @@
+﻿@page "/"
+@inject HttpClient _httpClient
+@using System.Text.Json
+
+@if (DatosCargados)
+{
+    <div class="home-wrapper">
+        <div class="home-wrapper-weather">
+            <h1 class="home-location-title">@City, @Country</h1>
+            <p class="home-weather-description">@DescriptionWeather</p>
+            <div class="contenedor-imagen">
+                <div class="contenedor-imagen-menor">
+                    <img class="imagen-in" alt="" aria-hidden="true" role="presentation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=">
+                </div>
+                <img class="image-in-secondary" alt="weatherIcon" src="@SrcWeatherIcon" decoding="async">
+            </div>
+            <h1 class="home-temp">@Temperature °C</h1>
+            <p>Feels like @FeelsLike °C</p>
+        </div>
+        <div class="home-wrapper-stats">
+            <div class="home-title-search">
+                <h3 style="text-align: left;">@DayOfWeek, @Hour </h3>
+                <input type="text" class="home-search" placeholder="Search a city..." @onkeypress="KeyPressHandle">
+            </div>
+            <div class="home-stats-box">
+                @foreach (var sm in statsModels)
+                {
+                    <StatsCard StatsModel="sm" />
+                }
+            </div>
+            <div class="home-switch-box">
+                <p class="home-switch" style="color: green;">Metric System</p>
+                <p class="home-switch" style="color: black;">Imperial System</p>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <input type="text" class="home-search ml-4" placeholder="Search a city..." @onkeypress="KeyPressHandle">
+    <h3>Error to load data</h3>
+}
+
+
+@code{
+    private List<StatsModel> statsModels = new List<StatsModel>();
+    Root rootResponse;
+    private string City { get; set; }
+    private string Country { get; set; }
+    private string searchCity { get; set; }
+    private string Hour { get; set; }
+    private string DayOfWeek { get; set; }
+    private string DescriptionWeather { get; set; }
+    private string Temperature { get; set; }
+    private string FeelsLike { get; set; }
+    private string SrcWeatherIcon { get; set; }
+    private bool DatosCargados { get; set; } = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetData(Constantes.PRIMARY_CITY);
+        StateHasChanged();
+    }
+
+    public async Task GetData(string search_City)
+    {
+        try
+        {            
+            HttpResponseMessage responseMessage = await _httpClient.GetAsync($"/data/2.5/weather?q={search_City}&appid={Constantes.API_KEY}");
+            if (responseMessage.StatusCode==System.Net.HttpStatusCode.OK)
+            {
+                DatosCargados = true;
+                var responseString = await responseMessage?.Content.ReadAsStringAsync() ?? "";
+                rootResponse = JsonSerializer.Deserialize<Root>(responseString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+                BuildListStatModel();
+            }
+            else
+                DatosCargados = false;
+
+        }
+        catch (Exception ex)
+        {
+            DatosCargados = false;
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+
+    public void BuildListStatModel()
+    {
+        SrcWeatherIcon = $"/images/{rootResponse.Weather[0].Icon}.svg";
+        City = rootResponse.Name;
+        Country = rootResponse.Sys.Country;
+        DescriptionWeather = rootResponse.Weather[0].Description;
+        Temperature = Converter.KelvinToCelsius(rootResponse.Main.Temp);
+        FeelsLike = Converter.KelvinToCelsius(rootResponse.Main.Feels_Like);
+        Hour = Converter.UnixTimeStampToDateTime(rootResponse.DT, rootResponse.Timezone).ToString("HH:mm");
+        DayOfWeek = Converter.UnixTimeStampToDateTime(rootResponse.DT, rootResponse.Timezone).DayOfWeek.ToString();
+        var compass = Converter.DegToCompass(rootResponse.Wind.Deg);
+        var sunrise = Converter.UnixTimeStampToDateTime(rootResponse.Sys.Sunrise, rootResponse.Timezone).ToString("HH:mm");
+        var sunset = Converter.UnixTimeStampToDateTime(rootResponse.Sys.Sunset, rootResponse.Timezone).ToString("HH:mm");
+        var visibility = (rootResponse.Visibility / 1000).ToString();
+        statsModels = new List<StatsModel>
+{
+            new StatsModel { Title = "Humidity", Value=rootResponse.Main.Humidity.ToString(), Magnitud ="%", ImageUrl="/images/025-humidity.png" },
+            new StatsModel { Title = "Wind Speed", Value = rootResponse.Wind.Speed.ToString(), Magnitud="m/s", ImageUrl="/images/017-wind.png" },
+            new StatsModel { Title = "Wind Direction", Value = compass, ImageUrl="/images/014-compass.png" },
+            new StatsModel { Title = "Visibility", Value = visibility, Magnitud="km", ImageUrl="/images/binocular.png" },
+            new StatsModel { Title = "Sunrise", Value = sunrise, ImageUrl="/images/040-sunrise.png" },
+            new StatsModel { Title = "Sunset", Value = sunset, ImageUrl="/images/041-sunset.png" },
+            };
+    }
+
+
+    async Task KeyPressHandle(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await GetData(searchCity);
+            searchCity = string.Empty;
+            StateHasChanged();
+
+        }
+        else
+            searchCity += (string)args.Key;
+    }
+}
+
+

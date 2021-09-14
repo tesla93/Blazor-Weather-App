@@ -1,0 +1,231 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+@font-face {
+    font-family: 'urbanist-medium';
+    src: url('../fonts/Urbanist-Medium.ttf') format('opentype');
+}
+
+html, body {
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family: urbanist-medium;
+    background-image: radial-gradient(circle 993px at .5% 50.5%,rgba(175,238,238,.67) 0,#f7f7f7 100.2%);
+    height: 100vh;
+    width: 100vw;
+    display: -moz-box;
+    display: flex;
+    -moz-box-pack: center;
+    justify-content: center;
+    -moz-box-align: center;
+    align-items: center;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.home-wrapper {
+    width: 1200px;
+    height: 590px;
+    text-align: center;
+    background: hsla(0,0%,100%,.95);
+    -webkit-box-shadow: 0 8px 32px 0 rgba(72,209,204,.57);
+    box-shadow: 0 8px 32px 0 rgba(72,209,204,.47);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    border-radius: 30px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 0 20px;
+}
+
+.home-wrapper-weather {
+    padding: 30px
+}
+
+
+
+.home-location-title {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.home-weather-description {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.contenedor-imagen {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+.contenedor-imagen-menor {
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+}
+
+.imagen-in {
+    max-width: 100%;
+    display: block;
+    margin: 0px;
+    border: medium none;
+    padding: 0px;
+}
+
+.image-in-secondary {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: medium none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.home-temp {
+    font-size: 84px;
+}
+
+
+
+.home-wrapper-stats {
+    background-color: #f7f7f7;
+    max-height: 590px;
+    padding: 30px;
+    text-align: right;
+    border-radius: 0 30px 30px 0;
+}
+
+.home-title-search {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 20px;
+    gap: 20px;
+}
+
+.home-search {
+    margin-bottom: 20px;
+    height: 40px;
+    border: none;
+    padding: 0 10px;
+    color: #303030;
+    font-size: 20px;
+    text-align: right;
+    border-radius: 10px;
+    font-family: 'urbanist-medium';
+    font-size: 18px;
+}
+
+.home-stats-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    gap: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+
+.home-stats-card {
+    background: hsla(0,0%,100%,.95);
+    border-radius: 20px;
+    padding: 20px;
+    max-height: 155px;
+}
+
+.home-stats-card-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.home-stats-card-image {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0px;
+}
+
+.image-stats-card-secondary {
+    box-sizing: border-box;
+    display: block;
+    max-width: 100%;
+}
+
+.image-stats-card-primary {
+    max-width: 100%;
+    display: block;
+    margin: 0px;
+    border: medium none;
+    padding: 0px;
+}
+
+.image-stats-card-principal {
+    position: absolute;
+    inset: 0px;
+    box-sizing: border-box;
+    padding: 0px;
+    border: medium none;
+    margin: auto;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+}
+
+
+.home-switch-box {
+    text-align: right;
+}
+
+.home-switch {
+    margin: 0 10px;
+    cursor: pointer;
+    display: inline;
+}
+
+p {
+    margin-bottom: 0rem !important;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }

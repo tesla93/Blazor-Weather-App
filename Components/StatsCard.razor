@@ -1,0 +1,22 @@
+﻿<div class="home-stats-card">
+    <p>@StatsModel.Title</p>
+    <div class="home-stats-card-content">
+        <div class="home-stats-card-image">
+            <div class="image-stats-card-secondary">
+                <img class="image-stats-card-primary" alt="" aria-hidden="true" role="presentation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=">
+            </div>
+            <img alt="weatherIcon" class="image-stats-card-principal"  src="@StatsModel.ImageUrl">
+        </div>
+        <div>
+            <h1>@StatsModel.Value</h1>
+            <p>@StatsModel.Magnitud</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public StatsModel StatsModel { get; set; }
+    
+
+}
