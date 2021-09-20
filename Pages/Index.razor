@@ -117,8 +117,8 @@ else
         var visibility = (rootResponse.Visibility / 1000).ToString();
         statsModels = new List<StatsModel>
 {
-            new StatsModel { Title = "Humidity", Value=rootResponse.Main.Humidity.ToString(), Magnitud ="%", ImageUrl="/images/025-humidity.png" },
-            new StatsModel { Title = "Wind Speed", Value = rootResponse.Wind.Speed.ToString(), Magnitud="m/s", ImageUrl="/images/017-wind.png" },
+            new StatsModel { Title = "Humidity", Value=rootResponse.Main.Humidity.ToString(), Magnitud ="%", ImageUrl="./images/025-humidity.png" },
+            new StatsModel { Title = "Wind Speed", Value = rootResponse.Wind.Speed.ToString(), Magnitud="m/s", ImageUrl="./images/017-wind.png" },
             new StatsModel { Title = "Wind Direction", Value = compass, ImageUrl="/images/014-compass.png" },
             new StatsModel { Title = "Visibility", Value = visibility, Magnitud="km", ImageUrl="/images/binocular.png" },
             new StatsModel { Title = "Sunrise", Value = sunrise, ImageUrl="/images/040-sunrise.png" },
