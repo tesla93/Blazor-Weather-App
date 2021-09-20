@@ -169,7 +169,7 @@
       "url": "images\/binocular.png"
     },
     {
-      "hash": "sha256-qE+84MUd8oaLIjjRYa+aCbra9qe14EGQ9Dir77zUif0=",
+      "hash": "sha256-N8Uz5JWLiwNdJGS9gOmHRFqIRs3Cw6mfZA1jG6C1pg0=",
       "url": "index.html"
     },
     {
@@ -273,7 +273,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-tyU9pilEa9BEAarEKnvLbkNd76hTOX7+wvP7mRaJVRQ=",
+      "hash": "sha256-XC4CKyh19f8ZF7S854KCCM\/KY7oV6bbxp9nJtTncQfk=",
       "url": "_framework\/BlazorWasmWeatherApp.dll"
     },
     {
@@ -349,7 +349,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-3VhB+ZdtqdymAzidPUJRpELOLuDMgxEushYY1fPaa1s=",
+      "hash": "sha256-28JcWw45H\/zac2d6Fo9kmCzVcfiMjR\/xoaC++JKAh4I=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -357,5 +357,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "PkT9nWqL"
+  "version": "QFc7xGRi"
 };
