@@ -103,7 +103,7 @@ else
 
     public void BuildListStatModel()
     {
-        SrcWeatherIcon = $"/images/{rootResponse.Weather[0].Icon}.svg";
+        SrcWeatherIcon = $"./images/{rootResponse.Weather[0].Icon}.svg";
         City = rootResponse.Name;
         Country = rootResponse.Sys.Country;
         DescriptionWeather = rootResponse.Weather[0].Description;
@@ -119,10 +119,10 @@ else
 {
             new StatsModel { Title = "Humidity", Value=rootResponse.Main.Humidity.ToString(), Magnitud ="%", ImageUrl="./images/025-humidity.png" },
             new StatsModel { Title = "Wind Speed", Value = rootResponse.Wind.Speed.ToString(), Magnitud="m/s", ImageUrl="./images/017-wind.png" },
-            new StatsModel { Title = "Wind Direction", Value = compass, ImageUrl="/images/014-compass.png" },
-            new StatsModel { Title = "Visibility", Value = visibility, Magnitud="km", ImageUrl="/images/binocular.png" },
-            new StatsModel { Title = "Sunrise", Value = sunrise, ImageUrl="/images/040-sunrise.png" },
-            new StatsModel { Title = "Sunset", Value = sunset, ImageUrl="/images/041-sunset.png" },
+            new StatsModel { Title = "Wind Direction", Value = compass, ImageUrl="./images/014-compass.png" },
+            new StatsModel { Title = "Visibility", Value = visibility, Magnitud="km", ImageUrl="./images/binocular.png" },
+            new StatsModel { Title = "Sunrise", Value = sunrise, ImageUrl="./images/040-sunrise.png" },
+            new StatsModel { Title = "Sunset", Value = sunset, ImageUrl="./images/041-sunset.png" },
             };
     }
 
