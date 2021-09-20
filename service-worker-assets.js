@@ -273,7 +273,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-HsNUCbH9WPUA6lN5Al6GW5nzXeiIAfIwLKe6RHl9eTE=",
+      "hash": "sha256-tyU9pilEa9BEAarEKnvLbkNd76hTOX7+wvP7mRaJVRQ=",
       "url": "_framework\/BlazorWasmWeatherApp.dll"
     },
     {
@@ -349,7 +349,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-6MhKmrdEQF8b12O+pQcH1CwSpq\/djNkGU7NkTszCVpg=",
+      "hash": "sha256-3VhB+ZdtqdymAzidPUJRpELOLuDMgxEushYY1fPaa1s=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -357,5 +357,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "f7g5z4JP"
+  "version": "PkT9nWqL"
 };
