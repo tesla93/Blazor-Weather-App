@@ -2,44 +2,56 @@
 @inject HttpClient _httpClient
 @using System.Text.Json
 
-@if (DatosCargados)
+@if (!Loading)
 {
-    <div class="home-wrapper">
-        <div class="home-wrapper-weather">
-            <h1 class="home-location-title">@City, @Country</h1>
-            <p class="home-weather-description">@DescriptionWeather</p>
-            <div class="contenedor-imagen">
-                <div class="contenedor-imagen-menor">
-                    <img class="imagen-in" alt="" aria-hidden="true" role="presentation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=">
+    @if (DataLoaded)
+    {
+        <div class="home-wrapper">
+            <div class="home-wrapper-weather">
+                <h1 class="home-location-title">@City, @Country</h1>
+                <p class="home-weather-description">@DescriptionWeather</p>
+                <div class="contenedor-imagen">
+                    <div class="contenedor-imagen-menor">
+                        <img class="imagen-in" alt="" aria-hidden="true" role="presentation" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4=">
+                    </div>
+                    <img class="image-in-secondary" alt="weatherIcon" src="@SrcWeatherIcon" decoding="async">
                 </div>
-                <img class="image-in-secondary" alt="weatherIcon" src="@SrcWeatherIcon" decoding="async">
+                <h1 class="home-temp">@Temperature °C</h1>
+                <p>Feels like @FeelsLike °C</p>
             </div>
-            <h1 class="home-temp">@Temperature °C</h1>
-            <p>Feels like @FeelsLike °C</p>
+            <div class="home-wrapper-stats">
+                <div class="home-title-search">
+                    <h3 style="text-align: left;">@DayOfWeek, @Hour </h3>
+                    <input type="text" class="home-search" placeholder="Search a city..." @onkeypress="KeyPressHandle">
+                </div>
+                <div class="home-stats-box">
+                    @foreach (var sm in statsModels)
+                    {
+                        <StatsCard StatsModel="sm" />
+                    }
+                </div>
+                <div class="home-switch-box">
+                    <p class="home-switch" style="color: green;">Metric System</p>
+                    <p class="home-switch" style="color: black;">Imperial System</p>
+                </div>
+            </div>
         </div>
-        <div class="home-wrapper-stats">
-            <div class="home-title-search">
-                <h3 style="text-align: left;">@DayOfWeek, @Hour </h3>
-                <input type="text" class="home-search" placeholder="Search a city..." @onkeypress="KeyPressHandle">
-            </div>
-            <div class="home-stats-box">
-                @foreach (var sm in statsModels)
-                {
-                    <StatsCard StatsModel="sm" />
-                }
-            </div>
-            <div class="home-switch-box">
-                <p class="home-switch" style="color: green;">Metric System</p>
-                <p class="home-switch" style="color: black;">Imperial System</p>
-            </div>
-        </div>
-    </div>
+    }
+    else
+    {
+        <input type="text" class="home-search ml-4" placeholder="Search a city..." @onkeypress="KeyPressHandle">
+        <h3>Error to load data</h3>
+    }
 }
 else
 {
-    <input type="text" class="home-search ml-4" placeholder="Search a city..." @onkeypress="KeyPressHandle">
-    <h3>Error to load data</h3>
+    <div class="loadingio-spinner-spinner-s5nj8w89pj">
+        <div class="ldio-fi6j1v166kb">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+    </div>
 }
+
 
 
 @code{
@@ -54,33 +66,36 @@ else
     private string Temperature { get; set; }
     private string FeelsLike { get; set; }
     private string SrcWeatherIcon { get; set; }
-    private bool DatosCargados { get; set; } = true;
+    private bool DataLoaded { get; set; } = true;
+    private bool Loading { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(5000);
         await GetData(Constantes.PRIMARY_CITY);
+        Loading = false;
         StateHasChanged();
     }
 
     public async Task GetData(string search_City)
     {
         try
-        {            
+        {
             HttpResponseMessage responseMessage = await _httpClient.GetAsync($"/data/2.5/weather?q={search_City}&appid={Constantes.API_KEY}");
-            if (responseMessage.StatusCode==System.Net.HttpStatusCode.OK)
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                DatosCargados = true;
+                DataLoaded = true;
                 var responseString = await responseMessage?.Content.ReadAsStringAsync() ?? "";
                 rootResponse = JsonSerializer.Deserialize<Root>(responseString, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 BuildListStatModel();
             }
             else
-                DatosCargados = false;
+                DataLoaded = false;
 
         }
         catch (Exception ex)
         {
-            DatosCargados = false;
+            DataLoaded = false;
             Console.WriteLine(ex.Message);
         }
     }
