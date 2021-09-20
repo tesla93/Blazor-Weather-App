@@ -169,7 +169,7 @@
       "url": "images\/binocular.png"
     },
     {
-      "hash": "sha256-N8Uz5JWLiwNdJGS9gOmHRFqIRs3Cw6mfZA1jG6C1pg0=",
+      "hash": "sha256-qE+84MUd8oaLIjjRYa+aCbra9qe14EGQ9Dir77zUif0=",
       "url": "index.html"
     },
     {
@@ -357,5 +357,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "ZVw9zw7D"
+  "version": "f7g5z4JP"
 };
